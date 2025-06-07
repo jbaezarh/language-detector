@@ -97,3 +97,27 @@ def classification_metrics_report(y_true:List,
         "metrics_per_size": metrics_per_size_df,
         "confusion_matrix": cm_df
     }
+
+
+from typing import Tuple
+
+def categorize_length(n: int, thresholds: Tuple[int, int] = (7, 12)) -> str:
+    """
+    Clasifica una secuencia según su longitud en tres categorías: 'Corta', 'Media' o 'Larga'.
+
+    Args:
+    - n (int): Número de palabras de la secuencia.
+    - thresholds (Tuple[int, int], opcional): Umbrales que definen los rangos de longitud.
+      El primero representa el mínimo de la categoría media (inclusive), y el segundo su máximo (inclusive).
+      Por defecto, (7, 12).
+
+    Returns:
+    - str: Categoría de longitud: 'Small (<7)', 'Medium (7–12)' o 'Long (>12)'.
+    """
+    min_med, max_med = thresholds
+    if n < min_med:
+        return f"Small (<{min_med})"
+    elif n <= max_med:
+        return f"Medium ({min_med}–{max_med})"
+    else:
+        return f"Long (>{max_med})"
